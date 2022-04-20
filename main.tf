@@ -1,5 +1,10 @@
+data "aws_route53_zone" "selected_zone" {
+  name         = var.route53_zone_name
+  private_zone = false
+}
+
 resource "aws_acm_certificate" "this" {
-  for_each          = { for index, domain in var.acm_domain_name : index => domain }
+  for_each          = { for index, domain in var.acms_domain_name : index => domain }
   domain_name       = each.value
   validation_method = "DNS"
 }
@@ -12,7 +17,7 @@ resource "aws_route53_record" "this" {
   records         = [each.value.resource_record_value]
   ttl             = 60
   type            = each.value.resource_record_type
-  zone_id         = var.route53_zone_id
+  zone_id         = data.aws_route53_zone.selected_zone.zone_id
 }
 
 resource "aws_acm_certificate_validation" "this" {

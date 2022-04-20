@@ -24,8 +24,8 @@ module "acm_singapore" {
     providers = {
     aws = aws.singapore
     }
-  acm_domain_name = ["domain1", "domain2"]
-  route53_zone_id = "<hostzone_id>"
+  acms_domain_name = ["domain1", "domain2"]
+  route53_zone_name = "<hostzone_domain_name>"
 }
 
 module "acm_virginia" {
@@ -33,8 +33,8 @@ module "acm_virginia" {
     providers = {
     aws = aws.virginia
     }
-  acm_domain_name = ["domain1", "domain2"]
-  route53_zone_id = "<hostzone_id>"
+  acms_domain_name = ["domain1", "domain2"]
+  route53_zone_name = "<hostzone_domain_name>"
 }
 ```
 
@@ -49,9 +49,9 @@ module "acm_virginia" {
 
 ## Providers
 
-| Name                                             | Version  |
-| ------------------------------------------------ | -------- |
-| <a name="provider_aws"></a> [aws](#provider_aws) | >= 4.0.0 |
+| Name                                             | Version |
+| ------------------------------------------------ | ------- |
+| <a name="provider_aws"></a> [aws](#provider_aws) | 4.7.0   |
 
 ## Modules
 
@@ -59,18 +59,19 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                          | Type     |
-| --------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| [aws_acm_certificate.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate)                       | resource |
-| [aws_acm_certificate_validation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
-| [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record)                         | resource |
+| Name                                                                                                                                          | Type        |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [aws_acm_certificate.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate)                       | resource    |
+| [aws_acm_certificate_validation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource    |
+| [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record)                         | resource    |
+| [aws_route53_zone.selected_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone)                 | data source |
 
 ## Inputs
 
-| Name                                                                           | Description                                          | Type           | Default | Required |
-| ------------------------------------------------------------------------------ | ---------------------------------------------------- | -------------- | ------- | :------: |
-| <a name="input_acm_domain_name"></a> [acm_domain_name](#input_acm_domain_name) | Domain name for request certificate.                 | `list(string)` | n/a     |   yes    |
-| <a name="input_route53_zone_id"></a> [route53_zone_id](#input_route53_zone_id) | Hosted zone ID matches with domain name certificate. | `string`       | n/a     |   yes    |
+| Name                                                                                 | Description                                            | Type           | Default | Required |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------ | -------------- | ------- | :------: |
+| <a name="input_acms_domain_name"></a> [acms_domain_name](#input_acms_domain_name)    | Domain name for request certificate.                   | `list(string)` | n/a     |   yes    |
+| <a name="input_route53_zone_name"></a> [route53_zone_name](#input_route53_zone_name) | Hosted zone name matches with domain name certificate. | `string`       | n/a     |   yes    |
 
 ## Outputs
 

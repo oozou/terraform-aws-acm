@@ -20,7 +20,7 @@ provider "aws" {
 }
 
 module "acm_singapore" {
-  source = "git::ssh://git@github.com/oozou/terraform-aws-acm.git?ref=<ref-id>"
+  source = "git::ssh://git@github.com/<-repository->/terraform-aws-acm.git?ref=<ref-id>"
     providers = {
     aws = aws.singapore
     }
@@ -36,7 +36,7 @@ module "acm_singapore" {
 }
 
 module "acm_virginia" {
-  source = "git::ssh://git@github.com/oozou/terraform-aws-acm.git?ref=<ref-id>"
+  source = "git::ssh://git@github.com/<-repository->/terraform-aws-acm.git?ref=<ref-id>"
     providers = {
     aws = aws.virginia
     }

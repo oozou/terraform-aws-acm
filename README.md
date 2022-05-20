@@ -20,21 +20,35 @@ provider "aws" {
 }
 
 module "acm_singapore" {
-  source = "<source>"
+  source = "git::ssh://git@github.com/oozou/terraform-aws-acm.git?ref=<ref-id>"
     providers = {
     aws = aws.singapore
     }
-  acms_domain_name = ["domain1", "domain2"]
-  route53_zone_name = "<hostzone_domain_name>"
+  acms_domain_name = {
+    argocd = {
+      domain_name = "argocd.test.com"
+    }
+    app = {
+      domain_name = "app-dev.test.com"
+    }
+  }
+  route53_zone_name = "test.com"
 }
 
 module "acm_virginia" {
-  source = "<source>"
+  source = "git::ssh://git@github.com/oozou/terraform-aws-acm.git?ref=<ref-id>"
     providers = {
     aws = aws.virginia
     }
-  acms_domain_name = ["domain1", "domain2"]
-  route53_zone_name = "<hostzone_domain_name>"
+  acms_domain_name = {
+    argocd = {
+      domain_name = "argocd.test.com"
+    }
+    app = {
+      domain_name = "app-dev.test.com"
+    }
+  }
+  route53_zone_name = "test.com"
 }
 ```
 
@@ -68,15 +82,15 @@ No modules.
 
 ## Inputs
 
-| Name                                                                                 | Description                                            | Type           | Default | Required |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------ | -------------- | ------- | :------: |
-| <a name="input_acms_domain_name"></a> [acms_domain_name](#input_acms_domain_name)    | Domain name for request certificate.                   | `list(string)` | n/a     |   yes    |
-| <a name="input_route53_zone_name"></a> [route53_zone_name](#input_route53_zone_name) | Hosted zone name matches with domain name certificate. | `string`       | n/a     |   yes    |
+| Name                                                                                 | Description                                            | Type     | Default | Required |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------ | -------- | ------- | :------: |
+| <a name="input_acms_domain_name"></a> [acms_domain_name](#input_acms_domain_name)    | Domain name for request certificate.                   | `any`    | `{}`    |    no    |
+| <a name="input_route53_zone_name"></a> [route53_zone_name](#input_route53_zone_name) | Hosted zone name matches with domain name certificate. | `string` | n/a     |   yes    |
 
 ## Outputs
 
-| Name                                                                             | Description     |
-| -------------------------------------------------------------------------------- | --------------- |
-| <a name="output_certificate_arn"></a> [certificate_arn](#output_certificate_arn) | Certificate ARN |
+| Name                                                                                | Description      |
+| ----------------------------------------------------------------------------------- | ---------------- |
+| <a name="output_certificate_arns"></a> [certificate_arns](#output_certificate_arns) | Certificate ARNs |
 
 <!-- END_TF_DOCS -->

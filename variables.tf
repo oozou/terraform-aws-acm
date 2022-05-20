@@ -1,6 +1,6 @@
 variable "acms_domain_name" {
   description = "Domain name for request certificate."
-  type        = any
+  type        = map(any)
   default     = {}
 }
 

@@ -1,6 +1,7 @@
 variable "acms_domain_name" {
   description = "Domain name for request certificate."
-  type        = list(string)
+  type        = any
+  default     = {}
 }
 
 variable "route53_zone_name" {

@@ -4,13 +4,16 @@ data "aws_route53_zone" "selected_zone" {
 }
 
 resource "aws_acm_certificate" "this" {
-  for_each          = { for index, domain in var.acms_domain_name : index => domain }
-  domain_name       = each.value
-  validation_method = "DNS"
+  for_each                  = var.acms_domain_name
+  domain_name               = lookup(each.value, "domain_name", null)
+  subject_alternative_names = lookup(each.value, "subject_alternative_names", [])
+  validation_method         = "DNS"
+  tags                      = local.tags
 }
 
+
 resource "aws_route53_record" "this" {
-  for_each = local.domains_validation_options
+  for_each = local.domains_validation_options_set
 
   allow_overwrite = true
   name            = each.value.resource_record_name
@@ -18,10 +21,17 @@ resource "aws_route53_record" "this" {
   ttl             = 60
   type            = each.value.resource_record_type
   zone_id         = data.aws_route53_zone.selected_zone.zone_id
+
+  depends_on = [
+    aws_acm_certificate.this
+  ]
 }
 
 resource "aws_acm_certificate_validation" "this" {
-  count                   = length(aws_route53_record.this)
-  certificate_arn         = aws_acm_certificate.this[count.index].arn
-  validation_record_fqdns = [aws_route53_record.this[count.index].fqdn]
+  for_each                = local.domains_validation_options_set
+  certificate_arn         = each.value.acm_arn
+  validation_record_fqdns = values(aws_route53_record.this)[*].fqdn
+  depends_on = [
+    aws_route53_record.this
+  ]
 }

@@ -9,6 +9,12 @@ variable "route53_zone_name" {
   type        = string
 }
 
+variable "is_automatic_verify_acms" {
+  description = "Whether to automatically verify all acm domain on route53."
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "Tag for a resource that create by this component"
   type        = map(string)

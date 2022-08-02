@@ -1,4 +1,5 @@
 data "aws_route53_zone" "selected_zone" {
+  count        = var.is_automatic_verify_acms ? 1 : 0
   name         = var.route53_zone_name
   private_zone = false
 }
@@ -20,7 +21,7 @@ resource "aws_route53_record" "this" {
   records         = [each.value.resource_record_value]
   ttl             = 60
   type            = each.value.resource_record_type
-  zone_id         = data.aws_route53_zone.selected_zone.zone_id
+  zone_id         = data.aws_route53_zone.selected_zone[0].zone_id
 
   depends_on = [
     aws_acm_certificate.this

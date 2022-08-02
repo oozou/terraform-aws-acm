@@ -7,6 +7,7 @@ variable "acms_domain_name" {
 variable "route53_zone_name" {
   description = "Hosted zone name matches with domain name certificate."
   type        = string
+  default     = null
 }
 
 variable "is_automatic_verify_acms" {

@@ -2,6 +2,14 @@
 
 All notable changes to this module will be documented in this file.
 
+## [1.0.4] - 2022-08-15
+
+Here we would have the update steps for 1.0.4 for people to follow.
+
+### Changed
+
+- move all example to `examples/complete`
+
 ## [1.0.3] - 2022-08-02
 
 Here we would have the update steps for 1.0.3 for people to follow.

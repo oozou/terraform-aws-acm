@@ -1,0 +1,11 @@
+aws_account = {
+  access_key = "xxxxxxxxxx",
+  region     = "ap-southeast-1",
+  secret_key = "xxxxxxxxx"
+}
+
+prefix      = "customer"
+environment = "dev"
+custom_tags = {
+  "Workspace" = "901-customer-sandbox-terraform"
+}

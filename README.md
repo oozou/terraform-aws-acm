@@ -3,54 +3,8 @@
 AWS Certificate manager Terraform
 
 ## Usage
-
-```terraform
-provider "aws" {
-  alias      = "virginia"
-  region     = "us-east-1"
-  access_key = var.aws_virginia_access_key
-  secret_key = var.aws_virginia_secret_key
-}
-
-provider "aws" {
-  alias      = "singapore"
-  region     = "ap-southeast-1"
-  access_key = var.aws_singapore_access_key
-  secret_key = var.aws_singapore_secret_key
-}
-
-module "acm_singapore" {
-  source = "git::ssh://git@github.com/<-repository->/terraform-aws-acm.git?ref=<ref-id>"
-  providers = {
-    aws = aws.singapore
-  }
-  acms_domain_name = {
-    argocd = {
-      domain_name = "argocd.test.com"
-    }
-  }
-  route53_zone_name        = "test.com"
-  is_automatic_verify_acms = true
-}
-
-module "acm_virginia" {
-  source = "git::ssh://git@github.com/<-repository->/terraform-aws-acm.git?ref=<ref-id>"
-  providers = {
-   aws = aws.virginia
-  }
-  acms_domain_name = {
-    argocd = {
-      domain_name               = "argo.test.com"
-      subject_alternative_names = ["argo.test.com"]
-    }
-    app = {
-      domain_name               = "app.test.com"
-      subject_alternative_names = []
-    }
-  }
-  route53_zone_name        = "test.com"
-  is_automatic_verify_acms = true
-}
+```
+Please see at examples/complete
 ```
 
 <!-- BEGIN_TF_DOCS -->
